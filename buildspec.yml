@@ -1,0 +1,27 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto8
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - $(aws ecr get-login --no-include-email --region $AWS_REGION)
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building java  
+      - mvn clean package
+      - echo Building the docker image
+      - docker build -t pensioner-process-micrcoservice .
+      - docker tag pensioner-process-micrcoservice:latest 274201610284.dkr.ecr.us-west-2.amazonaws.com/pensioner-process-micrcoservice:latest
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - docker push 274201610284.dkr.ecr.us-west-2.amazonaws.com/pensioner-process-micrcoservice:latest
+      - echo Writing definition files
+      - printf '[{"name":"pensioner-process-micrcoservice","imageUri":"%s"}]' 274201610284.dkr.ecr.us-west-2.amazonaws.com/pensioner-process-micrcoservice:latest > imagedefinitions.json
+
+artifacts:
+  files: imagedefinitions.json
