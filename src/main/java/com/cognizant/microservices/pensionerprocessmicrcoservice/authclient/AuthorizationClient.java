@@ -9,6 +9,6 @@ public interface AuthorizationClient {
 	
 	@GetMapping("/authorize")
 	public Boolean authorization(@RequestHeader("Authorization") String token);
-	
+	//status 
 
 }
