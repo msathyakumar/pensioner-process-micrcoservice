@@ -1,4 +1,6 @@
-FROM openjdk:8
-EXPOSE 9081
-ADD "target/pensioner-detail-service-sk.jar" "pensioner-detail-service-sk.jar"
-ENTRYPOINT [ "java", "-jar", "/pensioner-detail-service-sk.jar" ]
+FROM openjdk:8-jdk-alpine
+VOLUME /tmp
+EXPOSE 9084
+ADD target/*.jar app.jar
+ENV JAVA_OPTS=""
+ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar" ]
