@@ -21,7 +21,7 @@ phases:
       - echo Build completed on `date`
       - docker push 274201610284.dkr.ecr.us-west-2.amazonaws.com/pensioner-process-micrcoservice:latest
       - echo Writing definition files
-      - printf '[{"name":"pensioner-process-micrcoservice","imageUri":"%s"}]' 274201610284.dkr.ecr.us-west-2.amazonaws.com/pensioner-process-micrcoservice:latest > imagedefinitions.json
+      - printf '[{"name":"pensioner-process-micrcoservice-container","imageUri":"%s"}]' 274201610284.dkr.ecr.us-west-2.amazonaws.com/pensioner-process-micrcoservice:latest > imagedefinitions.json
 
 artifacts:
   files: imagedefinitions.json
