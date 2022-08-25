@@ -39,11 +39,13 @@ public class PensionProcessController {
 			@RequestBody PensionerInput processPensionInput) {
 		
 		LOGGER.info("STARTED - getStatusCode");
+		LOGGER.info("STARTED - getStatusCode"+token);
+		LOGGER.info("STARTED - getStatusCode"+processPensionInput.toString());
 		PensionerDetail pensionerDetail = pensionerDetailClient.findByAadhaarNumber(token,processPensionInput.getAadhaarNumber());
 		LOGGER.info("END - getStatusCode");
 		double bankcharge = pensionCalculation.bankcharge(pensionerDetail)-pensionCalculation.inputBankCharge(pensionerDetail.getBank().getBankType());
 		
-		return new ProcessPensionReponse(pensionerDetail.getAadhaarNumber(),bankcharge);
+		return new ProcessPensionReponse(pensionerDetail.getName(), pensionerDetail.getAadhaarNumber(),bankcharge);
 		//return new ProcessPensionReponse(pensionerDetail.getAadhaarNumber(),pensionerDetail.getSalary());
 		//return pensionDisbursementClient.getPensionDisbursement(token, processPensionInput);
 	}

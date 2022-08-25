@@ -9,7 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProcessPensionReponse {
-
+	private String name;
 	private String aadhaarNumber;
 	private double pensionAmount;
 	
